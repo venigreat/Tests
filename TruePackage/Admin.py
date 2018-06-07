@@ -8,10 +8,7 @@ environment = Environment(
 )
 
 admin_cli = Client(
-    environment=environment,
-    login="andrey.belyaev@corp.mail.ru",
-    password="LicoonSev8",
-    session_id="a4foedff2ce2lkiebltinx4j98"
+   
 )
 
 

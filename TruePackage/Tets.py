@@ -1,9 +1,9 @@
 import unittest
-import Elem_main
-import Elem_auth
-import Elem_settings
-import Elem_product
-import Elem_deal
+from TruePackage.ElemMain import ElemMain
+from TruePackage import Elem_auth
+from TruePackage import Elem_settings
+from TruePackage import Elem_product
+from TruePackage import Elem_deal
 import time
 import re
 from appium import webdriver
@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 from selenium.common.exceptions import NoSuchElementException
-from HelpMethods import HelpMeths
+from TruePackage.HelpMethods import HelpMeths
 
 
 desired_caps = {}
@@ -37,10 +37,10 @@ driver.implicitly_wait(7)
 
 
 def login_known_nmbr(phone):
-    driver.find_element_by_xpath(Elem_main.button_profile).click()
+    driver.find_element_by_xpath(ElemMain.button_profile).click()
     try:
         driver.find_element_by_xpath(Elem_auth.label_my_profile).is_displayed()
-        driver.find_element_by_xpath(Elem_main.button_home).click()
+        driver.find_element_by_xpath(ElemMain.button_home).click()
     except NoSuchElementException:
         driver.find_element_by_xpath(Elem_auth.button_phone_auth).click()
         driver.find_element_by_xpath(Elem_auth.field_countrycode).send_keys('7')
@@ -51,11 +51,11 @@ def login_known_nmbr(phone):
         driver.find_element_by_xpath(Elem_auth.button_success_auth).click()
         sold=driver.find_element_by_xpath(Elem_auth.label_sold)
         assert sold.text == "Продано"
-        driver.find_element_by_xpath(Elem_main.button_home).click()
+        driver.find_element_by_xpath(ElemMain.button_home).click()
 
 def logout():
     driver.launch_app()
-    driver.find_element_by_xpath(Elem_main.button_profile).click()
+    driver.find_element_by_xpath(ElemMain.button_profile).click()
     try:
         driver.find_element_by_xpath(Elem_auth.label_my_profile).is_displayed()
         driver.find_element_by_xpath(Elem_settings.button_gear).click()
@@ -67,7 +67,7 @@ def logout():
                 HelpMeths.swipe(driver)
         driver.find_element_by_xpath(Elem_settings.button_logout).click()
         driver.find_element_by_xpath(Elem_settings.button_confirm_logout).click()
-        driver.find_element_by_xpath(Elem_main.button_profile).click()
+        driver.find_element_by_xpath(ElemMain.button_profile).click()
     except:
         pass
     finally:
@@ -79,60 +79,60 @@ def logout():
 
 def add_ad(name="Test",category=0,subcategory=4):
     sleep(2)
-    driver.find_element_by_xpath(Elem_main.button_add).click()
+    driver.find_element_by_xpath(ElemMain.button_add).click()
     sleep(2)
-    driver.find_element_by_xpath(Elem_main.category_stuff).click()
+    driver.find_element_by_xpath(ElemMain.category_stuff).click()
     sleep(5)
-    driver.find_element_by_xpath(Elem_main.icon_photo).click()  # иконка фото
-    driver.find_element_by_xpath(Elem_main.button_chose_from_gallery).click()
+    driver.find_element_by_xpath(ElemMain.icon_photo).click()  # иконка фото
+    driver.find_element_by_xpath(ElemMain.button_chose_from_gallery).click()
     if driver.find_element_by_xpath(
-                Elem_main.permission_images_allow).is_displayed():
-         driver.find_element_by_xpath(Elem_main.permission_images_allow).click()
-    driver.find_element_by_xpath(Elem_main.first_image_in_gallery).click()
-    driver.find_element_by_xpath(Elem_main.button_apply_images).click()
-    driver.find_element_by_xpath(Elem_main.field_header_ad).send_keys("%s"%(name))
-    driver.find_element_by_xpath(Elem_main.field_cost).send_keys("500")
-    driver.find_element_by_xpath(Elem_main.button_choose_category).click()
-    driver.find_element_by_xpath(Elem_main.choose_subcategory %(category)).click()  # subcategory
-    driver.find_element_by_xpath(Elem_main.choose_subcategory %(subcategory)).click()  # subcategory
-    driver.find_element_by_xpath(Elem_main.button_done).click()
+                ElemMain.permission_images_allow).is_displayed():
+         driver.find_element_by_xpath(ElemMain.permission_images_allow).click()
+    driver.find_element_by_xpath(ElemMain.first_image_in_gallery).click()
+    driver.find_element_by_xpath(ElemMain.button_apply_images).click()
+    driver.find_element_by_xpath(ElemMain.field_header_ad).send_keys("%s" % (name))
+    driver.find_element_by_xpath(ElemMain.field_cost).send_keys("500")
+    driver.find_element_by_xpath(ElemMain.button_choose_category).click()
+    driver.find_element_by_xpath(ElemMain.choose_subcategory % (category)).click()  # subcategory
+    driver.find_element_by_xpath(ElemMain.choose_subcategory % (subcategory)).click()  # subcategory
+    driver.find_element_by_xpath(ElemMain.button_done).click()
     sleep(3)
-    driver.find_element_by_xpath(Elem_main.button_cancel_promotion).click()
+    driver.find_element_by_xpath(ElemMain.button_cancel_promotion).click()
     sleep(2)
-    if driver.find_element_by_xpath(Elem_main.button_promo_swipe).is_displayed():#promo swipe screen
-         driver.find_element_by_xpath(Elem_main.button_promo_swipe).click()
-    driver.find_element_by_xpath(Elem_main.button_home).click()
+    if driver.find_element_by_xpath(ElemMain.button_promo_swipe).is_displayed():#promo swipe screen
+         driver.find_element_by_xpath(ElemMain.button_promo_swipe).click()
+    driver.find_element_by_xpath(ElemMain.button_home).click()
 
 
 def promotion():
-    driver.find_element_by_xpath(Elem_main.button_profile).click()
+    driver.find_element_by_xpath(ElemMain.button_profile).click()
     sleep(5)
     driver.swipe(475, 1500, 475, 75, 750)
     sleep(1)
     for i in range(10):
-        ad = driver.find_element_by_xpath(Elem_main.frame_ad)
-        ad.find_element_by_xpath(Elem_main.relative_ad).click()
+        ad = driver.find_element_by_xpath(ElemMain.frame_ad)
+        ad.find_element_by_xpath(ElemMain.relative_ad).click()
         try:
-            driver.find_element_by_xpath(Elem_main.button_promo_swipe).click()
+            driver.find_element_by_xpath(ElemMain.button_promo_swipe).click()
         except NoSuchElementException:
             sleep(0.1)
         sleep(1)
         try:
-            driver.find_element_by_xpath(Elem_main.button_product_promotion).click()
-            driver.find_element_by_xpath(Elem_main.button_promotion_premium).click()
-            driver.find_element_by_xpath(Elem_main.button_promotion_x5).click()
-            driver.find_element_by_xpath(Elem_main.button_promotion_pay).click()
+            driver.find_element_by_xpath(ElemMain.button_product_promotion).click()
+            driver.find_element_by_xpath(ElemMain.button_promotion_premium).click()
+            driver.find_element_by_xpath(ElemMain.button_promotion_x5).click()
+            driver.find_element_by_xpath(ElemMain.button_promotion_pay).click()
             sleep(5)
-            driver.find_element_by_xpath(Elem_main.button_webview_card_pay).click()
+            driver.find_element_by_xpath(ElemMain.button_webview_card_pay).click()
             sleep(5)
-            driver.find_element_by_xpath(Elem_main.button_promotion_success).click()
-            driver.find_element_by_xpath(Elem_main.button_profile_back).click()
+            driver.find_element_by_xpath(ElemMain.button_promotion_success).click()
+            driver.find_element_by_xpath(ElemMain.button_profile_back).click()
             driver.swipe(475, 300, 475, 700, 500)
             sleep(0.5)
-            driver.find_element_by_xpath(Elem_main.button_home).click()
+            driver.find_element_by_xpath(ElemMain.button_home).click()
             break
         except NoSuchElementException:
-            driver.find_element_by_xpath(Elem_main.button_profile_back).click()
+            driver.find_element_by_xpath(ElemMain.button_profile_back).click()
             sleep(1)
             driver.swipe(475, 700, 475, 300, 500)
             sleep(1)
@@ -151,7 +151,7 @@ def starting_time(count_of_iterations):
         if desired_caps['appPackage'] == 'com.allgoritm.youla':
             for j in range(200):
                 try:
-                    if driver.find_element_by_xpath(Elem_main.ad_on_main).is_displayed():
+                    if driver.find_element_by_xpath(ElemMain.ad_on_main).is_displayed():
                         result_time += time.time() - start_time
                         break
 
@@ -161,7 +161,7 @@ def starting_time(count_of_iterations):
         else:
             for j in range(200):
                 try:
-                    if driver.find_element_by_xpath(Elem_main.avito_first_ad).is_displayed():
+                    if driver.find_element_by_xpath(ElemMain.avito_first_ad).is_displayed():
                         result_time += time.time() - start_time
                         break
                 except NoSuchElementException:
@@ -179,7 +179,7 @@ def starting_time(count_of_iterations):
 def check_amru_version():
     driver.launch_app()
     login_known_nmbr(9009879879)
-    driver.find_element_by_xpath(Elem_main.button_profile).click()
+    driver.find_element_by_xpath(ElemMain.button_profile).click()
     driver.find_element_by_xpath(Elem_settings.button_gear).click()
     for i in range(5):
         try:
@@ -196,15 +196,15 @@ def buy_BS():
     driver.launch_app()
     login_known_nmbr(9009879879)
     sleep(3)
-    driver.find_element_by_xpath(Elem_main.button_filtres_linear).\
-        find_element_by_xpath(Elem_main.button_filtres_text).click()
-    driver.find_element_by_xpath(Elem_main.chbox_filter_BS).click()
-    driver.find_element_by_xpath(Elem_main.chbox_filter_delivery).click()
-    driver.find_element_by_xpath(Elem_main.button_filter_accept).click()
+    driver.find_element_by_xpath(ElemMain.button_filtres_linear).\
+        find_element_by_xpath(ElemMain.button_filtres_text).click()
+    driver.find_element_by_xpath(ElemMain.chbox_filter_BS).click()
+    driver.find_element_by_xpath(ElemMain.chbox_filter_delivery).click()
+    driver.find_element_by_xpath(ElemMain.button_filter_accept).click()
     sleep(3)
-    ad = driver.find_element_by_xpath(Elem_main.ad_on_filter)
+    ad = driver.find_element_by_xpath(ElemMain.ad_on_filter)
     for i in range(10):
-        ad.find_element_by_xpath(Elem_main.linear_clickable_ad).click()
+        ad.find_element_by_xpath(ElemMain.linear_clickable_ad).click()
         sleep(2)
         if not HelpMeths.is_product_mine(driver):
             print("false")
@@ -223,7 +223,7 @@ def buy_BS():
     assert BS_buy.text == "КУПИТЬ СЕЙЧАС"
     driver.find_element_by_xpath(Elem_product.button_BS_buy).click()
     sleep(5)
-    driver.find_element_by_xpath(Elem_main.button_webview_card_pay).click()
+    driver.find_element_by_xpath(ElemMain.button_webview_card_pay).click()
     sleep(5)
     label_deal = driver.find_element_by_xpath(Elem_deal.header_deal_nmbr)
     assert re.fullmatch(r'Заказ №\d*', label_deal.text)
