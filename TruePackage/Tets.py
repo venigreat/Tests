@@ -28,7 +28,7 @@ desired_caps['skipUnlock'] = True
 
 
 driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-driver.implicitly_wait(5)
+driver.implicitly_wait(7)
 # driver.find_element_by_id(Elem_auth.button_choose_location).click()
 # driver.find_element_by_xpath(Elem_auth.city_from_list_moscow).click()
 
@@ -208,19 +208,25 @@ def buy_BS():
         sleep(2)
         if not HelpMeths.is_product_mine(driver):
             print("false")
-            break
+            try:
+                BS_buy = driver.find_element_by_xpath(Elem_product.button_BS_buy)
+                break
+            except:
+                sleep(2)
+                driver.find_element_by_xpath(Elem_product.button_back).click()
+                HelpMeths.swipe(driver)
         else:
             print("true")
             sleep(2)
             driver.find_element_by_xpath(Elem_product.button_back).click()
             HelpMeths.swipe(driver)
-    assert driver.find_element_by_xpath(Elem_product.button_BS_buy).text == "КУПИТЬ СЕЙЧАС"
+    assert BS_buy.text == "КУПИТЬ СЕЙЧАС"
     driver.find_element_by_xpath(Elem_product.button_BS_buy).click()
     sleep(5)
     driver.find_element_by_xpath(Elem_main.button_webview_card_pay).click()
     sleep(5)
-    vremenno = driver.find_element_by_xpath(Elem_deal.header_deal_nmbr)
-    assert re.fullmatch(r'Заказ №\d*', vremenno.text)
+    label_deal = driver.find_element_by_xpath(Elem_deal.header_deal_nmbr)
+    assert re.fullmatch(r'Заказ №\d*', label_deal.text)
     times_1 = driver.find_element_by_xpath(Elem_deal.label_timer).text.split()
     sleep(2)
     times_2 = driver.find_element_by_xpath(Elem_deal.label_timer).text.split()
