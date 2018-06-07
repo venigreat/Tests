@@ -1,6 +1,5 @@
-from TruePackage import Admin, HelpMethods, Tets
+from TruePackage import HelpMethods, Tets
 
-# Admin.py
 HelpMethods.py
 Tets.py
 

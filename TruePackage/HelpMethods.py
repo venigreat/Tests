@@ -1,5 +1,5 @@
 import unittest
-import Elem_product
+import ElemProduct
 from appium import webdriver
 from time import sleep
 from selenium.common.exceptions import NoSuchElementException
@@ -12,9 +12,9 @@ class HelpMeths:
     def is_visible(elem):
         try:
             elem.is_displayed()
-            return true
+            return True
         except NoSuchElementException:
-            return false
+            return False
 
     @staticmethod
     def swipe(driver, count=1):

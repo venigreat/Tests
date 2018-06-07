@@ -1,4 +1,3 @@
-
 class ElemMain:
     def __init__(self):
         self.button_profile = '//*[@class="android.widget.FrameLayout"][@index="4"]'
