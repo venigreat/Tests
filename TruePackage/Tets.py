@@ -1,33 +1,22 @@
-import unittest
-from TruePackage.ElemMain import ElemMain
-from TruePackage import ElemAuth
-from TruePackage import ElemSettings
-from TruePackage import ElemProduct
-from TruePackage import ElemDeal
 import time
 import re
+
 from appium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 from selenium.common.exceptions import NoSuchElementException
+
 from TruePackage.HelpMethods import HelpMeths
+from TruePackage.ElemProduct import ElemProduct
+from TruePackage.ElemMain import ElemMain
+from TruePackage.ElemAuth import ElemAuth
+from TruePackage.ElemSettings import ElemSettings
+from TruePackage.ElemDeal import ElemDeal
+from TruePackage.Configuration import Configuration
 
 
-desired_caps = {}
-desired_caps['platformName'] = 'Android'
-desired_caps['platformVersion'] = '8.1.0'# '6.0'
-desired_caps['deviceName'] = 'emulator'#'WKUWGAO7LV9HJFZH'
-#desired_caps['app'] = '/Users/andrey.belyaev/Downloads/app-debug-2.13(250515d92)dev-am-2.1.7.2.apk'
-desired_caps['appPackage'] = 'com.allgoritm.youla'#'com.avito.android'
-desired_caps['appActivity'] = '.AppInitActivity'#'.home.HomeActivity'
-desired_caps['automationName'] = 'uiautomator2'
-desired_caps['noReset'] = True
-desired_caps['noSign'] = True
-desired_caps['skipUnlock'] = True
 
-
-driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+config = Configuration()
+driver = webdriver.Remote('http://localhost:4723/wd/hub', config.desired_caps)
 driver.implicitly_wait(7)
 element_on_main = ElemMain()
 element_on_auth = ElemAuth()
@@ -242,7 +231,7 @@ def buy_BS():
 #find_nokia()
 #h_m.swipe()
 #login_known_nmbr(9009879879)
-#add_ad("Кошечка", 2, 2)
+#add_product("Кошечка", 2, 2)
 #swipe()
 #HelpMethods.swipe(driver)
 #promotion()

@@ -1,20 +1,21 @@
-import unittest
-import ElemProduct
-from appium import webdriver
 from time import sleep
 from selenium.common.exceptions import NoSuchElementException
 
-class HelpMeths:
-    def _init_(self, driver):
-        self.driver = driver
+from TruePackage.ElemProduct import ElemProduct
+from TruePackage.ElemMain import ElemMain
+from TruePackage.ElemAuth import ElemAuth
+from TruePackage.ElemSettings import ElemSettings
+from TruePackage.ElemDeal import ElemDeal
 
-    @staticmethod
-    def is_visible(elem):
-        try:
-            elem.is_displayed()
-            return True
-        except NoSuchElementException:
-            return False
+element_on_main = ElemMain()
+element_on_auth = ElemAuth()
+element_on_deal = ElemDeal()
+element_on_product = ElemProduct()
+element_on_settings = ElemSettings()
+
+class HelpMeths:
+    def __init__(self, driver):
+        self.driver = driver
 
     @staticmethod
     def swipe(driver, count=1):
@@ -23,11 +24,10 @@ class HelpMeths:
                          driver.get_window_size()['width'] * 0.5, driver.get_window_size()['height'] * 0.1, 700)
             sleep(3)
 
-    @staticmethod
     def is_product_mine(driver):
         sleep(2)
         try:
-            if driver.find_element_by_xpath(Elem_product.button_statistics).is_displayed():
+            if driver.find_element_by_xpath(element_on_product.button_statistics).is_displayed():
                 return True
             else:
                 return False
